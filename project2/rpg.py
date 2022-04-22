@@ -35,7 +35,7 @@ rooms = {
             'Engine Room' : {
                   'north' : 'Cab',
                   'south' : 'Passenger Car I',
-                  'item'  : 'Coal Shovel'
+                  'item'  : 'coal shovel'
                 },
             'Passenger Car I' : {
                   'north' : 'Engine Room',
@@ -53,7 +53,7 @@ rooms = {
             'Crew Car' :{
                   'south' : 'Caboose',
                   'north' : 'Passenger Car III',
-                  'item' : 'Keycard'
+                  'item' : 'keycard'
                   },
             'Caboose'  :{
                   'north' : 'Crew Car',
@@ -106,8 +106,8 @@ while True:
       #tell them they can't get it
       print('Can\'t get ' + move[1] + '!')
   ## Define how a player can win
-  if currentRoom == 'Cab' and 'Keycard' in ITEMS:
-    print('You enter the card into the terminal and flip an important looking switch to shut off the engine. Congratulations! Youstopped the train....................................but what is that scratching sound behind the door you just came through??')
+  if currentRoom == 'Cab' and 'keycard' in ITEMS:
+    print('You enter the card into the terminal and flip an important looking switch to shut off the engine. Congratulations! You stopped the train....................................but what is that scratching sound behind the door you just came through??')
     break
 
   ## If a player enters a room with a monster
