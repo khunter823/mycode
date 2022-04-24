@@ -8,6 +8,8 @@ MIDNIGHT TRAIN
 Commands:
   go [direction]
   get [item]
+=======
+You awake to the cruel stench of death. The train you were taking home after work has been overrun by undead creatures. As far as you know, you are the only survivor. Find a way to stop the train and escape with your life!
 ''')
 def showStatus():
   #print the player's current status
@@ -21,7 +23,7 @@ def showStatus():
   print("---------------------------")
 
 #an inventory, which is initially empty
-ITEMS = ["Flashlight"]
+ITEMS = []
 
 #a dictionary linking a room to other rooms
 ## A dictionary linking a room to other rooms
@@ -29,7 +31,7 @@ rooms = {
 
             'Cab' : {
                   'south' : 'Engine Room',
-                  'item'  : 'key'
+                  'item' : 'zombie'
                 },
 
             'Engine Room' : {
@@ -40,15 +42,16 @@ rooms = {
             'Passenger Car I' : {
                   'north' : 'Engine Room',
                   'south': 'Passenger Car II',
+                  'west' : 'Outside'
                },
             'Passenger Car II' : {
                   'north' : 'Passenger Car I',
                   'south' : 'Passenger Car III',
+                  'item' :  'zombie'
                },
             'Passenger Car III' : {
                   'south' : 'Crew Car',
-                  'north' : 'Passenger Car II',
-                  'item' : 'cookie'
+                  'north' : 'Passenger Car II'
             },
             'Crew Car' :{
                   'south' : 'Caboose',
@@ -56,7 +59,10 @@ rooms = {
                   'item' : 'keycard'
                   },
             'Caboose'  :{
-                  'north' : 'Crew Car',
+                  'north' : 'Crew Car'
+                  },
+            'Outside'  :{
+                  'east' : 'Passenger Car I'
                   }
                 }
 #start the player in the Hall
@@ -107,10 +113,18 @@ while True:
       print('Can\'t get ' + move[1] + '!')
   ## Define how a player can win
   if currentRoom == 'Cab' and 'keycard' in ITEMS:
-    print('You enter the card into the terminal and flip an important looking switch to shut off the engine. Congratulations! You stopped the train....................................but what is that scratching sound behind the door you just came through??')
-    break
+    print('You enter the card into the terminal and flip an important looking switch to shut off the engine. Congratulations! You stopped the train...You should try taking the exit in the first passenger car now!')
 
-  ## If a player enters a room with a monster
-  elif 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
-    print('A monster has got you... GAME OVER!')
+  ## If a player enters a room with a zombie
+  elif 'item' in rooms[currentRoom] and 'zombie' in rooms[currentRoom]['item'] and 'coal shovel' not in ITEMS:
+    print('ARGHHHHHH! You are attacked and bitten by a zombie...YOU DIED.')
     break
+  ## If a player enters a room with a zombie and a weapon
+  elif 'item' in rooms[currentRoom] and 'zombie' in rooms[currentRoom]['item'] and 'coal shovel' in ITEMS:
+      print('You encounter a zombie and bash it with the shovel until it stops moving!')
+      del rooms[currentRoom]['item']
+  ## End of game/goal area
+  elif currentRoom == 'Outside':
+      print('FREEDOM! You sigh in relief before hearing a whistling sound in the distance. What is that? The government has decided to launch a military strike at the train before it reaches the city...damn, YOU DIED.')
+      break
+      
