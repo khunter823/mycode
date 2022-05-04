@@ -1,8 +1,15 @@
 #/usr/bin/python3
 
+#install figlet module
+import pyfiglet
+
+#convert text to ascii banner 
+ascii_banner = pyfiglet.figlet_format("PYCARDS")
+print(ascii_banner)
+
 from random import shuffle
 
-
+#identify variables
 class Card:
     suits = ["spades",
              "hearts",
